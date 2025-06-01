@@ -2,4 +2,26 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-</resources>
+    <color name="blue">#3772E7</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="gray">#FF9E9E9E</color>
+
+    <!-- Dark theme colors -->
+    <color name="dark_background">#FF121212</color>
+    <color name="dark_item_background">#FF1E1E1E</color>
+    <color name="gray_light">#FFBDBDBD</color>
+
+    <!--for activity_settings -->
+    <color name="light_blue">#9FBBF3</color>
+    <color name="text_black">#000000</color>
+    <color name="text_gray">#AEAFB4</color>
+    <color name="light_gray">#E6E8EB</color>
+    <color name="hint_black">#818C99</color>
+    <color name="track_black">#000000</color>
+    <color name="track_gray">#AEAFB4</color>
+    <!-- <color name="search_placeholder_black">#1A1B22</color> -->
+    <!-- <color name="search_placeholder_white">#FFFFFFFF</color> -->
+ </resources>

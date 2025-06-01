@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tool_bar"
+        style="@style/MyToolbarTitle"
+        app:navigationIcon="@drawable/back_button"
+        app:title="@string/settings" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/selector"
+        style="@style/SettingsItemStyle"
+        android:layout_marginTop="24dp"
+        android:gravity="center_vertical"
+        android:text="@string/dark_theme"
+        app:thumbTint="@color/s_thumb_color"
+        app:trackTint="@color/s_track_color" />
+    <!-- Цвет ползунка и дорожки -->
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/shareLine"
+        style="@style/SettingsItemStyle"
+        android:text="@string/share_app"
+        android:drawableEnd="@drawable/share"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/supportLine"
+        style="@style/SettingsItemStyle"
+        android:text="@string/contact_support"
+        android:drawableEnd="@drawable/support"/>
+    <!-- app:drawableTint= "@color/blue"-->
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/agreementLine"
+        style="@style/SettingsItemStyle"
+        android:text="@string/user_agreement"
+        android:drawableEnd="@drawable/arrow_forward" />
+
+</LinearLayout>
