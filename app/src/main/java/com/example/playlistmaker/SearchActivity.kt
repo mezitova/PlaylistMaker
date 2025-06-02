@@ -25,8 +25,8 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        searchInput = findViewById(R.id.searchInput)
-        searchInputClear = findViewById(R.id.searchInputClear)
+        searchInput = findViewById(R.id.search_input)
+        searchInputClear = findViewById(R.id.search_input_clear)
 
         val navigationBack = findViewById<MaterialToolbar>(R.id.tool_bar)
         navigationBack.setNavigationOnClickListener {

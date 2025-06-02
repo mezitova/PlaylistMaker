@@ -20,13 +20,13 @@
       android:layout_marginTop="8dp">
 
     <EditText
-        android:id="@+id/searchInput"
+        android:id="@+id/search_input"
         android:imeOptions="actionDone"
         android:singleLine="true"
         style="@style/SearchEditTextStyle"/>
 
     <ImageView
-        android:id="@+id/searchInputClear"
+        android:id="@+id/search_input_clear"
         style="@style/SearchCancelButton"/>
   </FrameLayout>
 
