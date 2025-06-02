@@ -24,8 +24,15 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" >
+            <!--
+            MAIN – это главная точка входа в приложение.
+            LAUNCHER – значит, иконка приложения будет в меню телефона.
+            -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
+                <action android:name="android.intent.action.SEND" />
+                <data android:mimeType="text/plain" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

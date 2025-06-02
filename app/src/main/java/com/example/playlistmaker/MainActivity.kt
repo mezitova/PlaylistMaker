@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     //    private val tag = "TAG"
@@ -13,9 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button1 = findViewById<Button>(R.id.button_search)
-        val button2 = findViewById<Button>(R.id.button_media_library)
-        val button3 = findViewById<Button>(R.id.button_settings)
+        val searchButton = findViewById<Button>(R.id.button_search)
+        val libraryButton = findViewById<Button>(R.id.button_media_library)
+        val settingsButton = findViewById<Button>(R.id.button_settings)
 
 
         val button1ClickListener: View.OnClickListener = object : View.OnClickListener {
@@ -24,14 +23,14 @@ class MainActivity : AppCompatActivity() {
                 startActivity(searchIntent)
             }
         }
-        button1.setOnClickListener(button1ClickListener)
+        searchButton.setOnClickListener(button1ClickListener)
 
-        button2.setOnClickListener {
+        libraryButton.setOnClickListener {
             val libraryIntent = Intent(this, LibraryActivity::class.java)
             startActivity(libraryIntent)
         }
 
-        button3.setOnClickListener {
+        settingsButton.setOnClickListener {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
             startActivity(settingsIntent)
         }

@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tool_bar"
         style="@style/MyToolbarTitle"
-        app:navigationIcon="@drawable/back_button"
+        app:navigationIcon="@drawable/ic_back_arrow_48"
         app:title="@string/settings" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
@@ -24,20 +24,20 @@
     <!-- Цвет ползунка и дорожки -->
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/shareLine"
+        android:id="@+id/share_line"
         style="@style/SettingsItemStyle"
         android:text="@string/share_app"
         android:drawableEnd="@drawable/share"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/supportLine"
+        android:id="@+id/support_line"
         style="@style/SettingsItemStyle"
         android:text="@string/contact_support"
         android:drawableEnd="@drawable/support"/>
     <!-- app:drawableTint= "@color/blue"-->
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/agreementLine"
+        android:id="@+id/agreement_line"
         style="@style/SettingsItemStyle"
         android:text="@string/user_agreement"
         android:drawableEnd="@drawable/arrow_forward" />

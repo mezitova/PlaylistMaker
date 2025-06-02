@@ -2,9 +2,7 @@
 <resources>
     <dimen name="padding_default">16dp</dimen>
     <dimen name="text_size_large">20sp</dimen>
-    <dimen name="button_title">24sp</dimen>
     <dimen name="title_size">56dp</dimen> -->
-    <dimen name="icon">8dp</dimen>
     <dimen name="button_radius">16dp</dimen>
 
     <dimen name="button_text_size">22sp</dimen>
