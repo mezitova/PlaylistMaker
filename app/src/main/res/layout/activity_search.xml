@@ -25,9 +25,13 @@
         android:singleLine="true"
         style="@style/SearchEditTextStyle"/>
 
-    <ImageView
-        android:id="@+id/search_input_clear"
-        style="@style/SearchCancelButton"/>
+      <ImageView
+          android:id="@+id/search_input_clear"
+          style="@style/SearchCancelButton"/>
   </FrameLayout>
-
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recycler_track_list"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"/>
 </LinearLayout>
