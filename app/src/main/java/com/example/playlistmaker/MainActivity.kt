@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class MainActivity : AppCompatActivity() {
     //    private val tag = "TAG"
@@ -17,13 +20,13 @@ class MainActivity : AppCompatActivity() {
         val settingsButton = findViewById<Button>(R.id.button_settings)
 
 
-        val button1ClickListener: View.OnClickListener = object : View.OnClickListener {
+        val searchButtonClickListener: View.OnClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val searchIntent = Intent(this@MainActivity, SearchActivity::class.java)
+                val searchIntent = Intent(this@MainActivity, SearchActivity::class.java) //явное намерение
                 startActivity(searchIntent)
             }
         }
-        searchButton.setOnClickListener(button1ClickListener)
+        searchButton.setOnClickListener(searchButtonClickListener)
 
         libraryButton.setOnClickListener {
             val libraryIntent = Intent(this, LibraryActivity::class.java)
@@ -34,9 +37,9 @@ class MainActivity : AppCompatActivity() {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
             startActivity(settingsIntent)
         }
+
+
+
     }
-//    override fun onPause() {
-//        super.onPause()
-//        Log.d(tag, "Мы в методе onPause")
-//    }
+
 }

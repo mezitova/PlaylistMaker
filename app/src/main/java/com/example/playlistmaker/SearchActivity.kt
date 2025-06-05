@@ -9,6 +9,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 
 class SearchActivity : AppCompatActivity() {
@@ -16,6 +18,9 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchInput: EditText
     private lateinit var searchInputClear: ImageView
     private var searchText: String = "" // Переменная для хранения текста поиска
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: TrackAdapter
+
 
     companion object {
         private const val SEARCH_TEXT_KEY = "SEARCH_TEXT_KEY" // Ключ для сохранения текста
@@ -26,7 +31,14 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         searchInput = findViewById(R.id.search_input)
-        searchInputClear = findViewById(R.id.search_input_clear)
+        searchInputClear = findViewById(R.id.search_input_clear) //
+        recyclerView = findViewById(R.id.recycler_track_list) //-------------
+
+        // Инициализация RecyclerView------------
+        adapter = TrackAdapter(MockTracks.getMockTracks())
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        //----------------
 
         val navigationBack = findViewById<MaterialToolbar>(R.id.tool_bar)
         navigationBack.setNavigationOnClickListener {
@@ -35,7 +47,7 @@ class SearchActivity : AppCompatActivity() {
 
         // Настройка атрибутов EditText
         searchInput.apply {
-            hint = "Поиск"
+            hint = context.getString(R.string.search)
             maxLines = 1
             inputType = android.text.InputType.TYPE_CLASS_TEXT
         }
@@ -56,10 +68,12 @@ class SearchActivity : AppCompatActivity() {
 
         // TextWatcher для отслеживания изменений текста
         searchInput.addTextChangedListener(object : TextWatcher {
+            //Срабатывает перед изменением текста
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // заглушка
             }
 
+            //Срабатывает во время изменения текста.
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchText = s?.toString() ?: "" // Сохраняем текущий текст
                 searchInputClear.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
