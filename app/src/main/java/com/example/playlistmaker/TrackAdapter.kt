@@ -35,7 +35,7 @@ class TrackAdapter(private val tracks: List<Track>) : RecyclerView.Adapter<Track
 
             Glide.with(itemView.context)
                 .load(track.artworkUrl100)
-                .placeholder(R.drawable.placeholder) // Добавьте плейсхолдер в ресурсы
+                .placeholder(R.drawable.placeholder) //
                 .error(R.drawable.placeholder) // Показываем плейсхолдер при ошибке загрузки
                 .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.corner_radius)))
                 .centerCrop()
