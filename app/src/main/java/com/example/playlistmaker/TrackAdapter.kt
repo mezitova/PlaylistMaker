@@ -30,12 +30,17 @@ class TrackAdapter(private val tracks: List<Track>) : RecyclerView.Adapter<Track
 
         fun bind(track: Track) {
             trackName.text = track.trackName
-            artistName.text = track.artistName
-            trackTime.text = track.trackTime
+
+            artistName.apply {
+                text = track.artistName
+                requestLayout() // Принудительный перерасчёт - магия для решения бага в Android. * без которой трек тайм полетит вправо при повторном использовании ViewHolder
+            }
+
+            trackTime.text = track.getFormattedTime() // Форматируем здесь
 
             Glide.with(itemView.context)
                 .load(track.artworkUrl100)
-                .placeholder(R.drawable.placeholder) //
+                .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder) // Показываем плейсхолдер при ошибке загрузки
                 .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.corner_radius)))
                 .centerCrop()
@@ -43,3 +48,11 @@ class TrackAdapter(private val tracks: List<Track>) : RecyclerView.Adapter<Track
         }
     }
 }
+
+//* Почему требуется сброс текста?
+//Механизм переиспользования ViewHolder
+//RecyclerView для оптимизации использует одни и те же ViewHolder для разных позиций списка. Если не очищать данные перед их обновлением, могут оставаться артефакты от предыдущего элемента.
+//
+//Проблема с ellipsize и layout_weight
+//При комбинации android:ellipsize="end" и layout_weight, TextView может "застрять" в состоянии обрезанного текста, даже если новый текст короче. Это баг в Android.
+

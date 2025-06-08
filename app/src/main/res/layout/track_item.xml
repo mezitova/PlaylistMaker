@@ -48,7 +48,7 @@
                 android:maxLines="1"
                 android:textColor="?attr/trackSecondaryColor"
                 android:textFontWeight="400"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:fontFamily="@font/ys_display_regular"
                 android:textColor="?attr/trackSecondaryColor"
                 android:textFontWeight="400"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>

@@ -34,4 +34,32 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="24dp"/>
+  <!--            -11 спринт-            -->
+  <ImageView
+      android:id="@+id/placeHolderImage"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:scaleType="centerCrop"
+      android:layout_marginTop="@dimen/placeholder_image_margin_top"
+      android:layout_gravity="center_horizontal"
+      android:visibility="gone"
+      tools:src="@drawable/nothing_found"/>
+  <TextView
+      android:id="@+id/placeHolderMessage"
+      style="@style/SearchTextTitleStyle"
+      android:paddingHorizontal="24dp"
+      android:layout_marginTop="@dimen/placeholder_text_margin_top"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textFontWeight="400"
+      android:gravity="center"
+      android:visibility="gone"
+      tools:text="@string/no_internet"/>
+  <Button
+      android:id="@+id/refreshButton"
+      style="@style/refreshButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/refreshButton"
+      android:visibility="gone"/>
 </LinearLayout>
