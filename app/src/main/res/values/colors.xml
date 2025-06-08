@@ -11,7 +11,7 @@
     <color name="gray">#FF9E9E9E</color>
 
     <!-- Dark theme colors -->
-    <color name="dark_background">#FF121212</color>
+    <color name="dark_background">#1A1B22</color>
     <color name="dark_item_background">#FF1E1E1E</color>
     <color name="gray_light">#FFBDBDBD</color>
 
@@ -23,6 +23,5 @@
     <color name="hint_black">#818C99</color>
     <color name="track_black">#000000</color>
     <color name="track_gray">#AEAFB4</color>
-    <!-- <color name="search_placeholder_black">#1A1B22</color> -->
-    <!-- <color name="search_placeholder_white">#FFFFFFFF</color> -->
+>
  </resources>
