@@ -6,5 +6,6 @@
         <item name="trackNameColor">@color/white</item>
         <item name="trackSecondaryColor">@color/white</item>
         <item name="colorBackground">@color/dark_background</item>
+        <item name="placeholderIconColor">@color/white</item>
     </style>
 </resources>
