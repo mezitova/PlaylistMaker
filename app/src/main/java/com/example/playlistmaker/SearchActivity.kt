@@ -32,17 +32,9 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var trackAdapter: TrackAdapter
 
     //-------------------------------------<Спринт 11
-    private val iTunesBaseUrl = "https://itunes.apple.com"
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(iTunesBaseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
     //нам нужен экземпляр интерф. ITunesApi чтобы вызвать search
-    private val iTunesService = retrofit.create(ItunesApi::class.java)
+    private val iTunesService = ItunesApiClientCreator.create()
     private val tracks = ArrayList<Track>()
-    //private val trackAdapter = TrackAdapter(tracks)
 
     private lateinit var placeholderMessage: TextView
     private lateinit var placeHolderImage: ImageView
