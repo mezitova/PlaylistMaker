@@ -41,7 +41,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var refreshButton: Button
     //--------------------------------------Спринт 11>
 
-
+    //ст.
     companion object {
         private const val SEARCH_TEXT_KEY = "SEARCH_TEXT_KEY" // Ключ для сохранения текста
     }
@@ -241,14 +241,14 @@ class SearchActivity : AppCompatActivity() {
 
     // Сохранение текста перед уничтожением Activity
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(SEARCH_TEXT_KEY, searchText)
+        super.onSaveInstanceState(outState) //Сохраняет состояние всех View с id(например, текст в EditText, если у него есть android:id).
+        outState.putString(SEARCH_TEXT_KEY, searchText) //ключ-значение
     }
 
-    // Восстановление текста
+    // Восстановление текста, Вызывается, когда Activity воссоздается (например, после поворота экрана)
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, "")
+        super.onRestoreInstanceState(savedInstanceState) //восстанавливает состояние системных View (если у них есть android:id)
+        searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, "") //Извлекает сохраненный текст по ключу SEARCH_TEXT_KEY (если нет - использует пустую строку "")
         searchInputEditText.setText(searchText)
     }
 }
