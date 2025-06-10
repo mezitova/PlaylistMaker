@@ -3,10 +3,11 @@ package com.example.playlistmaker
 import java.util.Locale
 
 data class Track(
-    val trackName: String,
-    val artistName: String,
+    val trackName: String?,
+    val artistName: String?,
     val trackTimeMillis: Long,  // Храним миллисекунды
-    val artworkUrl100: String
+    val artworkUrl100: String?,
+    val trackId: String,
 ) {
     // Добавляем метод форматирования
     fun getFormattedTime(): String {

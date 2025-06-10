@@ -59,7 +59,8 @@ class SearchActivity : AppCompatActivity() {
 
 
         //trackAdapter = TrackAdapter(MockTracks.getMockTracks())
-        trackAdapter = TrackAdapter(tracks)
+        val searchHistoryService = (applicationContext as App).searchHistoryService
+        trackAdapter = TrackAdapter(tracks, searchHistoryService)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = trackAdapter
 
@@ -141,8 +142,9 @@ class SearchActivity : AppCompatActivity() {
                             Track(
                                 trackName = apiTrack.trackName ?: "",
                                 artistName = apiTrack.artistName ?: "",
-                                trackTimeMillis = apiTrack.trackTimeMillis ?: 0,  // Передаём миллисекунды
-                                artworkUrl100 = apiTrack.artworkUrl100 ?: ""
+                                trackTimeMillis = apiTrack.trackTimeMillis,  // Передаём миллисекунды
+                                artworkUrl100 = apiTrack.artworkUrl100 ?: "",
+                                trackId = apiTrack.trackId
                             )
                         }
                         showSearchResults(trackList)
