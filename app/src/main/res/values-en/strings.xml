@@ -18,4 +18,10 @@
 
     <string name="user_agreement_link">https://yandex.ru/legal/practicum_offer/</string>
 
+    <string name="nothing_found">Ничего не нашлось</string>
+    <string name="no_internet">Проблемы со связью \n
+        \n
+        Загрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="refreshButton">Обновить</string>
+
 </resources>

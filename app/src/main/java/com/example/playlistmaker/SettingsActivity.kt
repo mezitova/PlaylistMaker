@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textview.MaterialTextView
 
 class SettingsActivity : AppCompatActivity() {
@@ -14,6 +15,8 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        setThemeSwitcher()
 
         val navigationBack = findViewById<MaterialToolbar>(R.id.tool_bar)
         //setOnClickListener
@@ -56,6 +59,16 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
+    }
+    private fun setThemeSwitcher(){
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
+        themeSwitcher.isChecked = (applicationContext as App).darkTheme
 
+        //switcher, checked - ссылка на переключатель и его состояние
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            // приведение контекста приложения к кастомному классу App
+            //вызов нашей функции переключения темы с текущим состоянием переключателя
+            (applicationContext as App).switchTheme(checked)
+        }
     }
 }

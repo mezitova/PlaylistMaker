@@ -3,4 +3,5 @@
     <attr name="trackNameColor" format="reference|color" />
     <attr name="trackSecondaryColor" format="reference|color" />
     <attr name="colorBackground" format="reference|color" />
+    <attr name="placeholderIconColor" format="color|reference" />
 </resources>
