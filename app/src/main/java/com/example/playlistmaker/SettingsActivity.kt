@@ -62,13 +62,20 @@ class SettingsActivity : AppCompatActivity() {
     }
     private fun setThemeSwitcher(){
         val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
-        themeSwitcher.isChecked = (applicationContext as App).darkTheme
+        //applicationContext as App - приведение контекста приложения к нашему кастомному классу App
+        //.darkTheme - обращение к переменной darkTheme из класса App, которая хранит текущую тему
+        themeSwitcher.isChecked = (applicationContext as App).themeSwitcherService.getDarkThemeEnabled()
+        //applicationContext - Экземпляр нашего App
+
+
+        //App.themeSwitcherService.getDarkThemeEnabled() - если themeSwitcherService статичная, мы сможем к ней обратиться
+        //только после создания экземпляра App
 
         //switcher, checked - ссылка на переключатель и его состояние
         themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
             // приведение контекста приложения к кастомному классу App
             //вызов нашей функции переключения темы с текущим состоянием переключателя
-            (applicationContext as App).switchTheme(checked)
+            (applicationContext as App).themeSwitcherService.switchTheme(checked)
         }
     }
 }

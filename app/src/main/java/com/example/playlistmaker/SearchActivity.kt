@@ -15,8 +15,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,9 +52,9 @@ class SearchActivity : AppCompatActivity() {
         searchInputClear = findViewById(R.id.search_input_clear)
         recyclerView = findViewById(R.id.recycler_track_list)
         //----------------------------------<Спринт 11
-        placeholderMessage = findViewById(R.id.placeHolderMessage)
-        placeHolderImage = findViewById(R.id.placeHolderImage)
-        refreshButton = findViewById(R.id.refreshButton)
+        placeholderMessage = findViewById(R.id.place_holder_message)
+        placeHolderImage = findViewById(R.id.place_holder_Image)
+        refreshButton = findViewById(R.id.refresh_button)
         //----------------------------------Спринт 11>
 
 
