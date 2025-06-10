@@ -9,6 +9,7 @@
         <item name="trackSecondaryColor">@color/track_gray</item>
         <item name="colorBackground">@color/white</item>
         <item name="placeholderIconColor">@color/YP_Black</item>
+        <item name="searchHistoryTextColor">@color/YP_Black</item>
     </style>
 
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />
