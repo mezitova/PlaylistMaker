@@ -2,6 +2,8 @@ package com.example.playlistmaker
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import kotlin.apply
+import kotlin.collections.remove
 
 private const val HISTORY_KEY = "history_key"
 private const val MAX_HISTORY_SIZE = 10
@@ -31,4 +33,11 @@ class SearchHistoryService(private val sharedPrefs: SharedPreferences) {
         val json = sharedPrefs.getString(HISTORY_KEY, null) ?: return emptyArray()
         return Gson().fromJson(json, Array<Track>::class.java)
     }
+
+    fun clearHistory() {
+        sharedPrefs.edit()
+            .remove(HISTORY_KEY)
+            .apply()
+    }
+
 }

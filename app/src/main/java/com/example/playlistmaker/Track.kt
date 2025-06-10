@@ -11,8 +11,12 @@ data class Track(
 ) {
     // Добавляем метод форматирования
     fun getFormattedTime(): String {
-        val minutes = trackTimeMillis / 1000 / 60
-        val seconds = (trackTimeMillis / 1000) % 60
-        return String.format("%02d:%02d", minutes, seconds)
+        return if (trackTimeMillis > 0) {
+            val minutes = trackTimeMillis / 1000 / 60
+            val seconds = (trackTimeMillis / 1000) % 60
+            String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+        } else {
+            ""
+        }
     }
 }

@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
+
 class TrackAdapter(
-    private val tracks: List<Track>,
+    var tracks: List<Track>, // -------------------------------------
     private val searchHistoryService: SearchHistoryService
 ) : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 
