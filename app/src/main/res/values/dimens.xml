@@ -20,6 +20,8 @@
     <dimen name="placeholder_button_margin_top">24dp</dimen>
 
     <dimen name="corner_radius">2dp</dimen>
+    <dimen name="corner_radius2">8dp</dimen>
+    <dimen name="player_image_view">312dp</dimen>
 
 
 </resources>

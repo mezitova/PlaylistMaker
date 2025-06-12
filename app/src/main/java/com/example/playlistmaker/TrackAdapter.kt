@@ -1,16 +1,19 @@
 package com.example.playlistmaker
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 
 class TrackAdapter(
+    val parentActivity: AppCompatActivity,
     var tracks: List<Track>, // -------------------------------------
     private val searchHistoryService: SearchHistoryService
 ) : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
@@ -24,10 +27,17 @@ class TrackAdapter(
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener {
             searchHistoryService.addTrackToHistory(tracks[position])
+            playTrack(tracks[position])
         }
     }
 
     override fun getItemCount(): Int = tracks.size
+
+
+    private fun playTrack(track: Track) {
+        val playerIntent = Intent(parentActivity, Player::class.java).putExtra(Track::class.qualifiedName, track)
+        parentActivity.startActivity(playerIntent)
+    }
 
     class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val trackName: TextView = itemView.findViewById(R.id.track_name)

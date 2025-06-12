@@ -9,6 +9,7 @@ private const val HISTORY_KEY = "history_key"
 private const val MAX_HISTORY_SIZE = 10
 
 class SearchHistoryService(private val sharedPrefs: SharedPreferences) {
+    private val gson = Gson()
     // запись
     fun addTrackToHistory(trackToAdd: Track) {
         var currentTracks = getTrackHistory()
@@ -22,7 +23,7 @@ class SearchHistoryService(private val sharedPrefs: SharedPreferences) {
             newTracks.removeAt(newTracks.size - 1)
         }
 
-        val json = Gson().toJson(newTracks)
+        val json = gson.toJson(newTracks)
         sharedPrefs.edit()
             .putString(HISTORY_KEY, json)
             .apply()
@@ -31,7 +32,7 @@ class SearchHistoryService(private val sharedPrefs: SharedPreferences) {
     //чтение
     fun getTrackHistory(): Array<Track> {
         val json = sharedPrefs.getString(HISTORY_KEY, null) ?: return emptyArray()
-        return Gson().fromJson(json, Array<Track>::class.java)
+        return gson.fromJson(json, Array<Track>::class.java)
     }
 
     fun clearHistory() {

@@ -20,21 +20,7 @@ class App : Application() {
 
         val darkThemeEnabled = themeSwitcherService.getDarkThemeEnabled()
         themeSwitcherService.switchTheme(darkThemeEnabled)
-//        val darkTheme = sharedPrefs.getBoolean(THEMES_KEY, false) //при запуске приложения в поле darkTheme будет значение false, если на устройстве включена светлая тема, и true, если тёмная.
-//        switchTheme(darkTheme)
+
     }
 
-//    fun switchTheme(darkThemeEnabled: Boolean) {
-//        darkTheme = darkThemeEnabled //сохраняет текущее состояние темы в переменную класса
-//        AppCompatDelegate.setDefaultNightMode(
-//            if (darkThemeEnabled) {
-//                AppCompatDelegate.MODE_NIGHT_YES
-//            } else {
-//                AppCompatDelegate.MODE_NIGHT_NO
-//            }
-//        )
-//        sharedPrefs.edit()
-//            .putBoolean(THEMES_KEY, darkTheme)
-//            .apply()
-//    }
 }

@@ -10,6 +10,7 @@
         <item name="colorBackground">@color/white</item>
         <item name="placeholderIconColor">@color/YP_Black</item>
         <item name="searchHistoryTextColor">@color/white</item>
+        <item name="playerTrackNameColor">@color/YP_Black</item>
     </style>
 
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />
