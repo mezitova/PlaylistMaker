@@ -4,4 +4,6 @@
     <attr name="trackSecondaryColor" format="reference|color" />
     <attr name="colorBackground" format="reference|color" />
     <attr name="placeholderIconColor" format="color|reference" />
+    <attr name="searchHistoryTextColor" format="color|reference" />
+
 </resources>

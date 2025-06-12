@@ -22,6 +22,8 @@
     <string name="no_internet">Проблемы со связью \n
         \n
         Загрузка не удалась. Проверьте подключение к интернету</string>
-    <string name="refreshButton">Обновить</string>
+    <string name="refresh_button">Обновить</string>
+    <string name="search_history_massage_text">Вы искали</string>
+    <string name="clear_history_button_text">Очистить историю</string>
 
 </resources>

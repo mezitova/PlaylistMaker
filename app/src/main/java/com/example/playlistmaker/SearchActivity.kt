@@ -11,12 +11,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,7 +30,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var trackAdapter: TrackAdapter
 
-    //-------------------------------------<Спринт 11
+
     //нам нужен экземпляр интерф. ITunesApi чтобы вызвать search
     private val iTunesService = ItunesApiClientCreator.create()
     private val tracks = ArrayList<Track>()
@@ -39,7 +38,13 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var placeholderMessage: TextView
     private lateinit var placeHolderImage: ImageView
     private lateinit var refreshButton: Button
-    //--------------------------------------Спринт 11>
+
+    private lateinit var searchHistoryLayout: LinearLayout
+    private lateinit var searchHistoryMessage: TextView
+    private lateinit var trackHistoryList: RecyclerView
+    private lateinit var clearHistoryButton: Button
+    private lateinit var trackHistoryAdapter: TrackAdapter
+
 
     //ст.
     companion object {
@@ -53,17 +58,27 @@ class SearchActivity : AppCompatActivity() {
         searchInputEditText = findViewById(R.id.search_input)
         searchInputClear = findViewById(R.id.search_input_clear)
         recyclerView = findViewById(R.id.recycler_track_list)
-        //----------------------------------<Спринт 11
-        placeholderMessage = findViewById(R.id.placeHolderMessage)
-        placeHolderImage = findViewById(R.id.placeHolderImage)
-        refreshButton = findViewById(R.id.refreshButton)
-        //----------------------------------Спринт 11>
+
+        placeholderMessage = findViewById(R.id.place_holder_message)
+        placeHolderImage = findViewById(R.id.place_holder_Image)
+        refreshButton = findViewById(R.id.refresh_button)
+
+        searchHistoryLayout = findViewById(R.id.search_history_layout)
+        searchHistoryMessage = findViewById(R.id.search_history_message)
+        trackHistoryList = findViewById(R.id.track_history_list)
+        clearHistoryButton = findViewById(R.id.clear_history_button)
 
 
         //trackAdapter = TrackAdapter(MockTracks.getMockTracks())
-        trackAdapter = TrackAdapter(tracks)
+        val searchHistoryService = (applicationContext as App).searchHistoryService
+        trackAdapter = TrackAdapter(tracks, searchHistoryService)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = trackAdapter
+
+        //адаптер для истории
+        trackHistoryAdapter = TrackAdapter(emptyList(), searchHistoryService)
+        trackHistoryList.layoutManager = LinearLayoutManager(this)
+        trackHistoryList.adapter = trackHistoryAdapter
 
 
         val navigationBack = findViewById<MaterialToolbar>(R.id.tool_bar)
@@ -78,7 +93,6 @@ class SearchActivity : AppCompatActivity() {
             inputType = android.text.InputType.TYPE_CLASS_TEXT
         }
 
-        //--------------------------------- <Спринт 11
 
         searchInputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -96,8 +110,10 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
+        clearHistoryButton.setOnClickListener {
+            clearSearchHistory()
+        }
 
-        //------------------------------------ Спринт 11>
 
         // Восстановление текста при наличии сохраненного состояния
         if (savedInstanceState != null) {
@@ -110,6 +126,17 @@ class SearchActivity : AppCompatActivity() {
             clearSearchResults()
         }
 
+        searchInputEditText.setOnFocusChangeListener { _, hasFocus ->
+            updateHistoryVisibility(hasFocus)
+        }
+//        searchInputEditText.setOnFocusChangeListener{ _, hasFocus ->
+//            if(hasFocus && searchInputEditText.text.isNullOrEmpty()) {
+//                //TODO
+//            } else {
+//                //TODO
+//            }
+//        }
+
         // TextWatcher для отслеживания изменений текста
         searchInputEditText.addTextChangedListener(object : TextWatcher {
             //Срабатывает перед изменением текста
@@ -121,6 +148,13 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchText = s?.toString() ?: "" // Сохраняем текущий текст
                 searchInputClear.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+                updateHistoryVisibility(searchInputEditText.hasFocus())
+
+//                if(s.isNullOrEmpty()) {
+//                    //TODO
+//                } else {
+//                    //TODO
+//                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -131,7 +165,7 @@ class SearchActivity : AppCompatActivity() {
 
 
 
-    //-------------------------------<Спринт 11
+
     private fun performSearch(term: String) {
         showLoading()
         iTunesService.search(term).enqueue(object : Callback<TracksResponse> {
@@ -143,8 +177,9 @@ class SearchActivity : AppCompatActivity() {
                             Track(
                                 trackName = apiTrack.trackName ?: "",
                                 artistName = apiTrack.artistName ?: "",
-                                trackTimeMillis = apiTrack.trackTimeMillis ?: 0,  // Передаём миллисекунды
-                                artworkUrl100 = apiTrack.artworkUrl100 ?: ""
+                                trackTimeMillis = apiTrack.trackTimeMillis,  // Передаём миллисекунды
+                                artworkUrl100 = apiTrack.artworkUrl100 ?: "",
+                                trackId = apiTrack.trackId
                             )
                         }
                         showSearchResults(trackList)
@@ -235,9 +270,28 @@ class SearchActivity : AppCompatActivity() {
         //   searchInputClear.visibility = View.GONE
     }
 
+    private fun updateHistoryVisibility(hasFocus: Boolean) {
+        val historyTracks = (applicationContext as App).searchHistoryService.getTrackHistory().toList()
+        val shouldShowHistory = hasFocus && searchText.isEmpty() && historyTracks.isNotEmpty()
+
+        searchHistoryLayout.visibility = if (shouldShowHistory) View.VISIBLE else View.GONE
+        recyclerView.visibility = if (shouldShowHistory) View.GONE else View.VISIBLE
+
+        //Вместо создания нового экземпляра адаптера каждый раз при изменении списка
+        // обновляем существующий список
+        if (shouldShowHistory) {
+            trackHistoryAdapter.tracks = historyTracks
+            trackHistoryAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun clearSearchHistory() {
+        (applicationContext as App).searchHistoryService.clearHistory()
+        updateHistoryVisibility(searchInputEditText.hasFocus())
+    }
 
 
-    //-------------------------------Спринт 11>
+
 
     // Сохранение текста перед уничтожением Activity
     override fun onSaveInstanceState(outState: Bundle) {

@@ -1,66 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SearchActivityStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    style="@style/SearchActivityStyle"
     tools:context=".SearchActivity">
 
-  <com.google.android.material.appbar.MaterialToolbar
-      android:id="@+id/tool_bar"
-      style="@style/MyToolbarTitle"
-      app:navigationIcon="@drawable/ic_back_arrow_48"
-      app:title="@string/search"/>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tool_bar"
+        style="@style/MyToolbarTitle"
+        app:navigationIcon="@drawable/ic_back_arrow_48"
+        app:title="@string/search" />
 
-  <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="36dp"
-      android:paddingHorizontal="16dp"
-      android:layout_marginTop="8dp">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="16dp">
 
-    <EditText
-        android:id="@+id/search_input"
-        android:imeOptions="actionDone"
-        android:singleLine="true"
-        style="@style/SearchEditTextStyle"/>
+        <EditText
+            android:id="@+id/search_input"
+            style="@style/SearchEditTextStyle"
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
 
-      <ImageView
-          android:id="@+id/search_input_clear"
-          style="@style/SearchCancelButton"/>
-  </FrameLayout>
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recycler_track_list"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="24dp"/>
-  <!--            -11 спринт-            -->
-  <ImageView
-      android:id="@+id/placeHolderImage"
-      android:layout_width="120dp"
-      android:layout_height="120dp"
-      android:scaleType="centerCrop"
-      android:layout_marginTop="@dimen/placeholder_image_margin_top"
-      android:layout_gravity="center_horizontal"
-      android:visibility="gone"
-      tools:src="@drawable/nothing_found"/>
-  <TextView
-      android:id="@+id/placeHolderMessage"
-      style="@style/SearchTextTitleStyle"
-      android:paddingHorizontal="24dp"
-      android:layout_marginTop="@dimen/placeholder_text_margin_top"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textFontWeight="400"
-      android:gravity="center"
-      android:visibility="gone"
-      tools:text="@string/no_internet"/>
-  <Button
-      android:id="@+id/refreshButton"
-      style="@style/refreshButtonStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/refreshButton"
-      android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/search_input_clear"
+            style="@style/SearchCancelButton" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/search_history_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/search_history_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SearchTextTitle"
+                android:layout_marginTop="50dp"
+                android:text="@string/search_history_massage_text"
+                android:textFontWeight="500"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/track_history_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/clear_history_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SearchButtons"
+                android:text="@string/clear_history_button_text" />
+            <!--android:textColor="?attr/searchHistoryTextColor"
+                android:visibility="gone" -->
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_track_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp" />
+
+    <ImageView
+        android:id="@+id/place_holder_Image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/placeholder_image_margin_top"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        tools:src="@drawable/nothing_found" />
+
+    <TextView
+        android:id="@+id/place_holder_message"
+        style="@style/SearchTextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/placeholder_text_margin_top"
+        android:gravity="center"
+        android:paddingHorizontal="24dp"
+        android:textFontWeight="400"
+        android:visibility="gone"
+        tools:text="@string/no_internet" />
+
+    <Button
+        android:id="@+id/refresh_button"
+        style="@style/refreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/refresh_button"
+        android:visibility="gone" />
 </LinearLayout>
