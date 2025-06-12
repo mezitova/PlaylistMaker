@@ -109,5 +109,19 @@
         <item name="android:textSize">14sp</item>
         <item name="cornerRadius">54dp</item>
     </style>
+    <style name="PlayerTrackDescription">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:layout_marginTop">17dp</item>
+    </style>
+
+    <style name="PlayerTextRegular">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">?attr/playerTrackNameColor</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 
 </resources>

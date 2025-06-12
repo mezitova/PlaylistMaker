@@ -5,5 +5,6 @@
     <attr name="colorBackground" format="reference|color" />
     <attr name="placeholderIconColor" format="color|reference" />
     <attr name="searchHistoryTextColor" format="color|reference" />
+    <attr name="playerTrackNameColor" format="color|reference" />
 
 </resources>

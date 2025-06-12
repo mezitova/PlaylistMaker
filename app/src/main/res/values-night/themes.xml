@@ -8,6 +8,7 @@
         <item name="colorBackground">@color/dark_background</item>
         <item name="placeholderIconColor">@color/white</item>
         <item name="searchHistoryTextColor">@color/YP_Black</item>
+        <item name="playerTrackNameColor">@color/white</item>
 
     </style>
 </resources>

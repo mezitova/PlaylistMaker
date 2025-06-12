@@ -1,9 +1,11 @@
 package com.example.playlistmaker
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -70,27 +72,24 @@ class SearchActivity : AppCompatActivity() {
 
 
         //trackAdapter = TrackAdapter(MockTracks.getMockTracks())
-        val searchHistoryService = (applicationContext as App).searchHistoryService
-        trackAdapter = TrackAdapter(tracks, searchHistoryService)
+        val searchHistoryService = app.searchHistoryService
+        trackAdapter = TrackAdapter(this, tracks, searchHistoryService)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = trackAdapter
 
         //адаптер для истории
-        trackHistoryAdapter = TrackAdapter(emptyList(), searchHistoryService)
+        trackHistoryAdapter = TrackAdapter(this, emptyList(), searchHistoryService)
         trackHistoryList.layoutManager = LinearLayoutManager(this)
         trackHistoryList.adapter = trackHistoryAdapter
 
 
-        val navigationBack = findViewById<MaterialToolbar>(R.id.tool_bar)
-        navigationBack.setNavigationOnClickListener {
-            finish()
-        }
+        setupToolbar()
 
         // Настройка атрибутов EditText
         searchInputEditText.apply {
             hint = context.getString(R.string.search)
             maxLines = 1
-            inputType = android.text.InputType.TYPE_CLASS_TEXT
+            inputType = InputType.TYPE_CLASS_TEXT
         }
 
 
@@ -175,11 +174,15 @@ class SearchActivity : AppCompatActivity() {
                     if (tracksResponse?.results != null) {
                         val trackList = tracksResponse.results.map { apiTrack ->
                             Track(
-                                trackName = apiTrack.trackName ?: "",
-                                artistName = apiTrack.artistName ?: "",
+                                trackName = apiTrack.trackName,
+                                artistName = apiTrack.artistName,
                                 trackTimeMillis = apiTrack.trackTimeMillis,  // Передаём миллисекунды
-                                artworkUrl100 = apiTrack.artworkUrl100 ?: "",
-                                trackId = apiTrack.trackId
+                                artworkUrl100 = apiTrack.artworkUrl100,
+                                trackId = apiTrack.trackId,
+                                collectionName = apiTrack.collectionName,
+                                releaseDate = apiTrack.releaseDate,
+                                primaryGenreName = apiTrack.primaryGenreName,
+                                country = apiTrack.country
                             )
                         }
                         showSearchResults(trackList)
@@ -265,13 +268,13 @@ class SearchActivity : AppCompatActivity() {
 
 
         // Скрываем клавиатуру
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(searchInputEditText.windowToken, 0)
         //   searchInputClear.visibility = View.GONE
     }
 
     private fun updateHistoryVisibility(hasFocus: Boolean) {
-        val historyTracks = (applicationContext as App).searchHistoryService.getTrackHistory().toList()
+        val historyTracks = app.searchHistoryService.getTrackHistory().toList()
         val shouldShowHistory = hasFocus && searchText.isEmpty() && historyTracks.isNotEmpty()
 
         searchHistoryLayout.visibility = if (shouldShowHistory) View.VISIBLE else View.GONE
@@ -286,11 +289,18 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun clearSearchHistory() {
-        (applicationContext as App).searchHistoryService.clearHistory()
+        app.searchHistoryService.clearHistory()
         updateHistoryVisibility(searchInputEditText.hasFocus())
     }
 
+    private fun setupToolbar() {
+        findViewById<MaterialToolbar>(R.id.tool_bar).apply {
+            setNavigationOnClickListener { finish() }
+        }
+    }
 
+    private val app: App
+        get() = applicationContext as App
 
 
     // Сохранение текста перед уничтожением Activity
@@ -305,4 +315,6 @@ class SearchActivity : AppCompatActivity() {
         searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, "") //Извлекает сохраненный текст по ключу SEARCH_TEXT_KEY (если нет - использует пустую строку "")
         searchInputEditText.setText(searchText)
     }
+
+
 }
